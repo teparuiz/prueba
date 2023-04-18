@@ -1,0 +1,49 @@
+body { 
+    display: block;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+.separation {
+    display: block;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    z-index: 1;
+}
+
+  
+  .primercuadrado {
+    background-color: #ff0000;
+    top: 0;
+    left: 0;
+  }
+  
+  .segundocuadrado {
+    background-color: #00ff00;
+    top: 0;
+    left: 50%;
+  }
+  
+  .tercercuadrado {
+    background-color: #0000ff;
+    top: 50%;
+    left: 0;
+  }
+  
+  .cuartocuadrado {
+    background-color: black;
+    top: 50%;
+    left: 50%;
+  }
+
+  .circulo {
+    background-color: #ffffff;
+    border-radius: 50%;
+    top: 25%;
+    left: 25%;
+    z-index: 2;
+  }
+
