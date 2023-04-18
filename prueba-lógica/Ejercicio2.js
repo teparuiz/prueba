@@ -1,33 +1,76 @@
 const readline = require("readline");
 
-// Función para obtener el número de caracteres mínimos para almacenar los años en el rango dado
-function getMinimalYearChars(yearsRange) {
-    const [startYear, endYear] = yearsRange.split('-'); // Dividir la entrada en año inicial y año final
-    const startYearDigits = startYear.length - (startYear.includes('BC') ? 2 : 0); // Número de dígitos del año inicial sin contar "BC"
-    const endYearDigits = endYear.length - (endYear.includes('BC') ? 2 : 0); // Número de dígitos del año final sin contar "AD"
-    return Math.max(startYearDigits, endYearDigits); // Devolver el mayor número de dígitos entre el año inicial y el año final
+// Convierte los números normales a decimales
+function decimalToRoman(decimal) {
+   let roman = "";
+  const romanNumeralMap = [
+    ["M", 1000],
+    ["CM", 900],
+    ["D", 500],
+    ["CD", 400],
+    ["C", 100],
+    ["XC", 90],
+    ["L", 50],
+    ["XL", 40],
+    ["X", 10],
+    ["IX", 9],
+    ["V", 5],
+    ["IV", 4],
+    ["I", 1],
+  ];
+  for (let i = 0; i < romanNumeralMap.length; i++) {
+    const [r, n] = romanNumeralMap[i];
+    while (decimal >= n) {
+      roman += r;
+      decimal -= n;
+    }
   }
-  
-  // Leer la entrada
-  const yearsRange = prompt("Ingrese el rango de años (A-B):");
-  
-  // Obtener el número de caracteres mínimos
-  const minimalChars = getMinimalYearChars(yearsRange);
-  
-  // Imprimir el resultado
-  console.log(`El número mínimo de caracteres para almacenar los años en el rango ${yearsRange} es: ${minimalChars}`);
+  return roman;
+}
 
-
-  function getMinimalYearChars(yearsRange) {
-    const [startYear, endYear] = yearsRange.split('-'); // Dividir la entrada en año inicial y año final
-  
-    // Calcular la cantidad total de caracteres en el rango de años, sin contar "BC" o "AD"
-    const startYearChars = startYear.replace(/BC/g, '').replace(/\d+/g, '').length;
-    const endYearChars = endYear.replace(/AD/g, '').replace(/\d+/g, '').length;
-  
-    // Devolver la suma de caracteres entre el año inicial y el año final, sumando 1 para el guión "-"
-    return startYearChars + endYearChars + 1;
+// Convierte los números romanos a años
+function yearToRoman(year) {
+  let roman = "";
+  if (year < 1) {
+    return "";
   }
-  
-  console.log(getMinimalYearChars('1BC-1AD')); // Salida: 7
-  
+  if (year >= 1000) {
+    const thousands = Math.floor(year / 1000);
+    roman += "M".repeat(thousands);
+    year -= thousands * 1000;
+  }
+  if (year >= 100) {
+    const hundreds = Math.floor(year / 100);
+    roman += decimalToRoman(hundreds * 100);
+    year -= hundreds * 100;
+  }
+  if (year >= 10) {
+    const tens = Math.floor(year / 10);
+    roman += decimalToRoman(tens * 10);
+    year -= tens * 10;
+  }
+  roman += decimalToRoman(year);
+  return roman;
+}
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.question(
+  "Introduce el rango de años separado por un guión en el formato AÑO(1-4 cifras)AD/BC-AÑO(1-4 cifras)AD/BC: ",
+  function (inputStr) {
+    const [aStr, bStr] = inputStr.split("-");
+    const a = aStr.endsWith("AD" || "BC" || "AC")
+      ? parseInt(aStr.slice(0, -2))
+      : -parseInt(aStr.slice(0, -2));
+    const b = bStr.endsWith("AD" || "BC" || "AC")
+      ? parseInt(bStr.slice(0, -2))
+      : -parseInt(bStr.slice(0, -2));
+    const aRoman = yearToRoman(a);
+    const bRoman = yearToRoman(b);
+    console.log(Math.max(aRoman.length, bRoman.length));
+    rl.close();
+  }
+);

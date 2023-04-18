@@ -23,16 +23,16 @@ rl.question("Ingrese el número de casos de prueba: ", (T) => {
   // Loop a través de cada caso de prueba
   for (let i = 0; i < T; i++) {
     // Leer la cuadrícula
-    rl.question("Ingrese las dimensiones de la cuadrícula (N M): ", (input) => {
+    rl.question("Ingrese las dimensiones (N M): ", (input) => {
       const [N, M] = input.split(" ").map(Number);
 
-      // Obtener la dirección 
+      // Obtener la dirección
       const direction = getDirection(N, M);
 
       // Imprimir la dirección final
       console.log(`Dirección final: ${direction}`);
 
-      // Preguntar por el siguiente caso de prueba
+      // Preguntar por el siguiente caso
       if (i < T - 1) {
         rl.question("Presione enter para continuar...", () => {
           console.clear();
