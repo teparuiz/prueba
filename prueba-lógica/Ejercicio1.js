@@ -1,6 +1,6 @@
 const readline = require("readline");
 
-// Función para obtener la dirección final en base a las dimensiones de la cuadrícula
+// Función para obtener la dirección
 function getDirection(n, m) {
   if (n === m && n % 2 === 1 && m % 2 === 1) {
     return "R";
@@ -18,15 +18,15 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// Obtener el número de casos de prueba
+// Casos de prueba
 rl.question("Ingrese el número de casos de prueba: ", (T) => {
   // Loop a través de cada caso de prueba
   for (let i = 0; i < T; i++) {
-    // Leer las dimensiones de la cuadrícula
+    // Leer la cuadrícula
     rl.question("Ingrese las dimensiones de la cuadrícula (N M): ", (input) => {
       const [N, M] = input.split(" ").map(Number);
 
-      // Obtener la dirección final
+      // Obtener la dirección 
       const direction = getDirection(N, M);
 
       // Imprimir la dirección final
