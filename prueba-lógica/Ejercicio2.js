@@ -57,7 +57,7 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-
+// Interfaz con la terminal
 rl.question(
   "Introduce el rango de años separado por un guión en el formato AÑO(1-4 cifras)AD/BC-AÑO(1-4 cifras)AD/BC: ",
   function (inputStr) {
